@@ -51,7 +51,7 @@ url: https://bitnami-labs.github.io/sealed-secrets
 Please make sure to inspect the values file first, and replace the `<>` placeholders where needed:
 
 ```shell
-SEALED_SECRETS_CHART_VERSION="2.1.6"
+SEALED_SECRETS_CHART_VERSION="2.4.0"
 
 curl "https://raw.githubusercontent.com/digitalocean/Kubernetes-Starter-Kit-Developers/main/08-kubernetes-sealed-secrets/assets/manifests/sealed-secrets-values-v${SEALED_SECRETS_CHART_VERSION}.yaml" > "sealed-secrets-values-v${SEALED_SECRETS_CHART_VERSION}.yaml"
 ```
@@ -61,7 +61,7 @@ curl "https://raw.githubusercontent.com/digitalocean/Kubernetes-Starter-Kit-Deve
 `Kubeseal` CLI expects by default to find the controller in the `kube-system` namespace and to be named `sealed-secrets-controller`, hence we override the release name via the `--release-name` and `--target-namespace` flags. This is not mandatory, but `kube-system` is usually accessible only to power users (administrators):
 
   ```shell
-  SEALED_SECRETS_CHART_VERSION="2.1.6"
+  SEALED_SECRETS_CHART_VERSION="2.4.0"
 
   flux create helmrelease "sealed-secrets-controller" \
     --release-name="sealed-secrets-controller" \
@@ -100,7 +100,7 @@ curl "https://raw.githubusercontent.com/digitalocean/Kubernetes-Starter-Kit-Deve
         sourceRef:
           kind: HelmRepository
           name: sealed-secrets
-        version: 2.1.6
+        version: 2.4.0
     interval: 1m0s
     releaseName: sealed-secrets-controller
     targetNamespace: flux-system
@@ -116,7 +116,7 @@ curl "https://raw.githubusercontent.com/digitalocean/Kubernetes-Starter-Kit-Deve
 ### Step 4 - Commit your changes and observe the reconciliation process
 
   ```shell
-  SEALED_SECRETS_CHART_VERSION="2.1.6"
+  SEALED_SECRETS_CHART_VERSION="2.4.0"
 
   git add "${FLUXCD_HELM_MANIFESTS_PATH}/repositories/sealed-secrets.yaml"
 
@@ -143,7 +143,7 @@ The output looks similar to:
 
 ```text
 NAME                        READY   MESSAGE                                 REVISION        SUSPENDED 
-sealed-secrets-controller   True    Release reconciliation succeeded        2.1.6          False 
+sealed-secrets-controller   True    Release reconciliation succeeded        2.4.0          False 
 ```
 
 Look for the `READY` column value - it should say `True`. Reconciliation status is displayed in the `MESSAGE` column, along with the `REVISION` number, which represents the `Helm` chart `version`. Please bear in mind that some releases take longer to complete (like `Prometheus` stack, for example), so please be patient.
